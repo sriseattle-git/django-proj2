@@ -16,12 +16,22 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
     """
     Serializer class to serialize registration requests and create a new user.
     """
-
+    password2 = serializers.CharField(write_only=True, required=True)
     class Meta:
         model = CustomUser
-        fields = ("id", "username", "email", "password")
+
+        # Removing the "username" field from this serializer did the trick:
+        # Username field stopped showing up in the browsable API registration form
+        fields = ("id", "email", "password", "password2")
         extra_kwargs = {"password": {"write_only": True}}
 
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError(
+                {"password": "Password fields didn't match."})
+        attrs.pop('password2')
+        return attrs
+            
     def create(self, validated_data):
         return CustomUser.objects.create_user(**validated_data)
 

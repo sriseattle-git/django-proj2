@@ -7,10 +7,10 @@ from .models import CustomUser
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ("email",)
+        fields = ("email", "first_name", "last_name",)
         exclude = ("username",) # Didn't work to not show the username field in registration form...
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ("email",)
+        fields = ("email", "first_name", "last_name")

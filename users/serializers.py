@@ -10,19 +10,23 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ("id", "username", "email")
+        fields = ("id", "username", "email", "first_name", "last_name")
 
 class UserRegisterationSerializer(serializers.ModelSerializer):
     """
     Serializer class to serialize registration requests and create a new user.
+    Make first and last names required fields
     """
     password2 = serializers.CharField(write_only=True, required=True)
+    first_name = serializers.CharField(required=True, write_only=True)
+    last_name = serializers.CharField(required=True, write_only=True)
+
     class Meta:
         model = CustomUser
 
         # Removing the "username" field from this serializer did the trick:
         # Username field stopped showing up in the browsable API registration form
-        fields = ("id", "email", "password", "password2")
+        fields = ("id", "first_name", "last_name", "email", "password", "password2")
         extra_kwargs = {"password": {"write_only": True}}
 
     def validate(self, attrs):

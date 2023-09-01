@@ -23,9 +23,16 @@ class CustomUserAdmin(UserAdmin):
 
     # Remove username from list_display, fieldsets, add_fieldsets
     # since CustomUser has indicated username = None 
+    # Add first_name & last_name to list_display, fieldsets, add_fieldsets
+    # list_display: defines fields and order of display for list of users view
+    # fieldsets: defines field groupings and order in change user form
+    # add_fieldsets: defines field groupings and order in add new user form
+    
     list_display = (
 #        "username",
         "email",
+        "first_name",
+        "last_name",        
         "is_active",
         "is_staff",
         "is_superuser",
@@ -33,7 +40,7 @@ class CustomUserAdmin(UserAdmin):
     )
     list_filter = ("is_active", "is_staff", "is_superuser")
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("first_name", "last_name", "email", "password")}),
         (
             "Permissions",
             {
@@ -55,9 +62,11 @@ class CustomUserAdmin(UserAdmin):
                 "classes": ("wide",),
                 "fields": (
 #                    "username",
-                    "email",
+                    "email",             
                     "password1",
                     "password2",
+                    "first_name",
+                    "last_name",                       
                     "is_staff",
                     "is_active",
                 ),

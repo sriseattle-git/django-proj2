@@ -14,6 +14,8 @@ class CustomUser(AbstractUser):
 #    username = None # Added this after looking up Stackfoverflow
     username = models.CharField(max_length=30, blank=True, null=True)
     email = models.EmailField(_("email address"), unique=True)
+    first_name = models.CharField(_("first name"), blank=False, null=True)
+    last_name = models.CharField(_("last name"), blank=False, null=True)
 
     # Specify email as the field to be used as unique identifier
     USERNAME_FIELD = "email"

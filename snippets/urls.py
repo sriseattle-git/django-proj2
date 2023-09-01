@@ -5,10 +5,10 @@ from snippets import views
 #app_name = "snippets"
 
 urlpatterns = [
-    path("snippets/", views.SnippetList.as_view(), name="snippet-list"),
-    path("snippets/<int:pk>/", views.SnippetDetail.as_view(), name="snippet-detail"),
+    path("all/", views.SnippetList.as_view(), name="snippet-list"),
+    path("snippet/<int:pk>/", views.SnippetDetail.as_view(), name="snippet-detail"),
     path(
-        "snippets/<int:pk>/highlight/",
+        "snippet/<int:pk>/highlight/",
         views.SnippetHighlight.as_view(),
         name="snippet-highlight",
     ),     
